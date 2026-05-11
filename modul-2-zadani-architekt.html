@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zadání přístupnosti: architekt, architektka</title>
+<meta name="description" content="Požadavky na přístupnost a bezbariérové užívání pro architekta nebo architektku. Součást průvodce Jak zavést přístupnost do kultury.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --krem: #eeede5;
+    --krem-light: #f5f3ee;
+    --bila: #ffffff;
+    --hneda: #452e25;
+    --tan: #c2a274;
+    --cervena: #fe4623;
+    --sedohneda: #6a5d57;
+    --cerna: #000000;
+    --border-soft: #d4cfc0;
+    --border-med: #a89e90;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Open Sans", sans-serif;
+    background: var(--krem);
+    color: var(--hneda);
+    line-height: 1.6;
+    font-size: 17px;
+    min-height: 100vh;
+  }
+  :focus-visible {
+    outline: 2px solid var(--cervena);
+    outline-offset: 3px;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--hneda);
+    color: var(--krem);
+    padding: 8px 16px;
+    z-index: 100;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
+  .top-line {
+    height: 3px;
+    background: var(--cervena);
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 32px 64px;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .tool-btn {
+    background: var(--bila);
+    border: 1.5px solid var(--border-med);
+    color: var(--hneda);
+    padding: 10px 18px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tool-btn:hover {
+    background: var(--krem-light);
+    border-color: var(--hneda);
+  }
+
+  /* Hlavička */
+  .doc-header {
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+  .meta-line {
+    font-size: 13px;
+    color: var(--sedohneda);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .meta-line .sep {
+    margin: 0 8px;
+    color: var(--border-med);
+  }
+  h1 {
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--hneda);
+    margin-bottom: 16px;
+  }
+  h1 .accent { color: var(--cervena); }
+  .lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--sedohneda);
+    max-width: 640px;
+  }
+
+  /* Instrukce pro Miladu */
+  .intro-box {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-left: 4px solid var(--cervena);
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    border-radius: 2px;
+  }
+  .intro-box-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--hneda);
+  }
+  .intro-box p {
+    color: var(--hneda);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .intro-box p:last-child { margin-bottom: 0; }
+  .emphasized {
+    color: var(--cervena);
+    font-weight: 700;
+  }
+
+  /* Sekce */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .section-number {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--bila);
+    background: var(--cervena);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    color: var(--hneda);
+  }
+
+  /* Smluvní věta — Vrstva 1 */
+  .clause-block {
+    background: var(--bila);
+    border: 1.5px solid var(--hneda);
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 12px;
+  }
+  .clause-label {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--sedohneda);
+    margin-bottom: 12px;
+  }
+  .checklist-group-header.urgent {
+    background: var(--cervena);
+    color: var(--bila);
+  }
+  .clause-text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--hneda);
+    font-weight: 500;
+  }
+  .clause-note {
+    font-size: 13px;
+    color: var(--sedohneda);
+    margin-top: 10px;
+    font-style: normal;
+  }
+
+  /* Příloha — Vrstva 2 */
+  .annex-block {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    padding: 28px 28px;
+  }
+  .annex-block p {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--hneda);
+    margin-bottom: 14px;
+  }
+  .annex-block p:last-child { margin-bottom: 0; }
+
+  /* Checklist — Vrstva 3 */
+  .checklist-group {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .checklist-group-header {
+    background: var(--tan);
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--hneda);
+  }
+  .checklist-items {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--hneda);
+    cursor: pointer;
+  }
+  .checklist-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    accent-color: var(--hneda);
+    cursor: pointer;
+  }
+  .checklist-item label {
+    cursor: pointer;
+    flex: 1;
+  }
+  .checklist-item.checked label {
+    text-decoration: line-through;
+    color: var(--sedohneda);
+  }
+
+  /* Kontakty */
+  .contacts-block {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    padding: 24px 28px;
+  }
+  .contacts-note {
+    font-size: 15px;
+    color: var(--hneda);
+    margin-bottom: 16px;
+  }
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .contact-item {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--hneda);
+  }
+  .contact-item strong {
+    font-weight: 700;
+  }
+  .contact-item a {
+    color: var(--hneda);
+    text-decoration: underline;
+  }
+  .contact-item a:hover {
+    color: var(--cervena);
+  }
+
+  /* Podpis konzultace */
+  .milestone-block {
+    background: var(--krem-light);
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+  .milestone-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--hneda);
+    margin-bottom: 12px;
+  }
+  .milestone-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--hneda);
+    margin-bottom: 8px;
+  }
+  .milestone-row:last-child { margin-bottom: 0; }
+  .milestone-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    accent-color: var(--hneda);
+    cursor: pointer;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--sedohneda);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Grayscale mode */
+  body.grayscale {
+    filter: grayscale(1);
+  }
+
+  /* Print */
+  @media print {
+    .toolbar { display: none; }
+    .top-line { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .checklist-group-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    body { font-size: 13px; }
+    .container { padding: 20px 20px 40px; }
+    .clause-block, .annex-block, .checklist-group, .contacts-block { break-inside: avoid; }
+    .section { break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 24px 20px 48px; }
+    .contact-item { flex-direction: column; gap: 4px; }
+    .contact-tag { min-width: unset; }
+    .footer { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Přejít na hlavní obsah</a>
+<div class="top-line" aria-hidden="true"></div>
+
+<main id="main-content">
+<div class="container">
+
+  <!-- Toolbar -->
+  <div class="toolbar" role="toolbar" aria-label="Nástroje dokumentu">
+    <button class="tool-btn" id="grayscale-toggle" aria-pressed="false">
+      Odstíny šedi
+    </button>
+    <button class="tool-btn" onclick="window.print()">
+      Uložit jako PDF nebo vytisknout
+    </button>
+  </div>
+
+  <!-- Hlavička -->
+  <header class="doc-header">
+    <div class="meta-line" aria-label="Umístění v průvodci">
+      Jak zavést přístupnost do kultury: průvodce
+      <span class="sep" aria-hidden="true">·</span>
+      Modul 2
+      <span class="sep" aria-hidden="true">·</span>
+      Zadání pro dodavatele
+    </div>
+    <h1>Zadání přístupnosti:<br><span class="accent">architekt, architektka</span></h1>
+    <p class="lead">Tento dokument posíláš dodavateli jako přílohu zadání. Obsahuje smluvní klauzuli, úplné požadavky na přístupnost a kontrolní checklist.</p>
+  </header>
+
+  <!-- Instrukce pro Miladu -->
+    <div class="intro-box" role="note" aria-label="Instrukce pro objednavatele">
+      <div class="intro-box-title">Jak s dokumentem pracovat</div>
+      <p>Dokument má dvě části. Jedna se týká smlouvy, druhá zadání.</p>
+      <p><span class="emphasized">Smluvní klauzuli</span> vlož do smlouvy do oddílu o přístupnosti.</p>
+      <p><span class="emphasized">Přílohu smlouvy, checklist a kontakty na komunitní partnery</span> pošli dodavateli jako součást zadání.</p>
+      <p>Dodavatel je zodpovědný za organizaci a dokumentaci konzultace a testování.</p>
+    </div>
+
+  <!-- SEKCE 1: Smluvní klauzule -->
+  <section class="section" aria-labelledby="sekce-klauzule">
+    <div class="section-header">
+      <div class="section-number" aria-hidden="true">1</div>
+      <h2 id="sekce-klauzule">Smluvní klauzule</h2>
+    </div>
+
+    <div class="clause-block">
+      <div class="clause-label">Vložte do smlouvy, oddíl o přístupnosti</div>
+      <p class="clause-text">Dodavatel se zavazuje plnit Požadavky na přístupnost a bezbariérové užívání podle Přílohy [X] této smlouvy. Ve fázi návrhu projedná řešení s odborníkem či odbornicí na přístupnost nebo s komunitním partnerem ze zastoupení cílové skupiny. Před dokončením díla otestuje funkčnost řešení s uživateli se zdravotním postižením a záznamy z konzultace i testování předá objednateli. Nesplnění těchto požadavků se považuje za vadu plnění.</p>
+      <p class="clause-note">Číslo přílohy doplňte podle číslování příloh vaší smlouvy.</p>
+    </div>
+  </section>
+
+  <!-- SEKCE 2: Příloha smlouvy -->
+  <section class="section" aria-labelledby="sekce-priloha">
+    <div class="section-header">
+      <div class="section-number" aria-hidden="true">2</div>
+      <h2 id="sekce-priloha">Příloha smlouvy: požadavky na přístupnost a bezbariérové užívání</h2>
+    </div>
+
+    <div class="annex-block">
+    <div class="annex-block">
+      <p><strong>Dodavatel je povinen navrhnout a dodat řešení tak, aby bylo bezpečně, důstojně a v co největší míře samostatně použitelné</strong> pro osoby s různými potřebami, včetně osob s omezenou schopností pohybu, orientace, sluchu, zraku nebo komunikace.</p>
+
+      <p><strong>Přístupnost musí být řešena nejen v prostorách určených pro veřejnost, ale také v relevantních částech provozu</strong>, které využívá tým instituce, externí spolupracující osoby, hosté, účinkující nebo vystupující. To zahrnuje zejména vstupy, trasy pohybu, výstavní, divácké a edukativní prostory, hygienické zázemí, pracovní a produkční zázemí, backstage, místa pro přednášející nebo účinkující a únikové či evakuační trasy.</p>
+
+      <p><strong>Řešení musí odpovídat platným právním a technickým požadavkům</strong>, zejména stavebnímu zákonu č. 283/2021 Sb., vyhlášce č. 146/2024 Sb. o požadavcích na výstavbu a ČSN 73 4001 Přístupnost a bezbariérové užívání, v rozsahu relevantním pro daný typ stavby, úpravy, vybavení nebo instalace.</p>
+
+      <p><strong>Součástí návrhu musí být také srozumitelný orientační a informační systém</strong>, vhodné osvětlení, dostatečné kontrasty, bezpečné a sjízdné povrchy, přístupné výšky a manipulační prostory a řešení umožňující využívat služby, program i pracovní zázemí bez zbytečných bariér.</p>
+
+      <p><strong>Dodavatel je povinen ve fázi návrhu konzultovat řešení s odborníkem či odbornicí na přístupnost nebo s komunitním partnerem</strong> ze zastoupení cílové skupiny. Před dokončením, spuštěním provozu nebo otevřením veřejnosti je dodavatel povinen otestovat funkčnost navrženého řešení s uživateli se zdravotním postižením.</p>
+
+      <p><strong>Dodavatel doloží objednateli písemně záznam z konzultace ve fázi návrhu a záznam z testování před dokončením</strong> (s uvedením účastníků a jejich připomínek) a popis, jak byly připomínky zapracovány do finálního řešení.</p>
+
+      <p><strong>Náklady na konzultaci a testování s odborníky a uživateli jsou součástí ceny díla</strong>, není-li sjednáno jinak.</p>
+
+      <p>Případné bariéry, výjimky, technická omezení nebo odchylky od požadavků na přístupnost musí být předem písemně odůvodněny a doplněny návrhem přiměřeného náhradního opatření. <strong>Nesplnění těchto požadavků se považuje za vadu plnění.</strong></p>
+    </div>
+  </section>
+
+  <!-- SEKCE 3: Checklist -->
+  <section class="section" aria-labelledby="sekce-checklist">
+    <div class="section-header">
+      <div class="section-number" aria-hidden="true">3</div>
+      <h2 id="sekce-checklist">Checklist přístupnosti</h2>
+    </div>
+
+    <p style="font-size:14px; color:var(--sedohneda); margin-bottom:4px;">Vychází z ČSN 73 4001 Přístupnost a bezbariérové užívání (platná od srpna 2024) a vyhlášky č. 146/2024 Sb.</p>
+    <p style="font-size:14px; color:var(--sedohneda); margin-bottom:20px;">Pozor: zaškrtnutí se neuloží po zavření stránky.</p>
+
+    <!-- Fyzická dostupnost -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-fyzicka">
+      <div class="checklist-group-header" id="skupina-fyzicka">Fyzická dostupnost a trasy pohybu</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="f1" aria-describedby="skupina-fyzicka">
+          <label for="f1">Bezbariérový vstup do všech prostorů určených pro veřejnost, tým a účinkující (bez schodů nebo s rampou, výtahem nebo plošinou)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f2">
+          <label for="f2">Hlavní trasa bez překážek, min. 900 mm volného průchodu</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f3">
+          <label for="f3">Příčný sklon pochozích ploch max. 2 %</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f4">
+          <label for="f4">Prahy max. 20 mm, ideálně zapuštěné nebo s nájezdovou hranou</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f5">
+          <label for="f5">Místa k sezení každých 20 metrů trasy</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f6">
+          <label for="f6">Manipulační plocha pro otočení vozíku (průměr min. 1500 mm) před výtahem, záchodem a klíčovými body trasy</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="f7">
+          <label for="f7">Výtah nebo plošina tam, kde jsou více než dvě podlaží nebo překonání výškového rozdílu nad 200 mm</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hygienické zázemí -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-hygiena">
+      <div class="checklist-group-header" id="skupina-hygiena">Hygienické zázemí</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="h1">
+          <label for="h1">Bezbariérová záchodová kabina přístupná z veřejné části i ze zázemí pro tým a účinkující</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="h2">
+          <label for="h2">Manipulační plocha v kabině min. 1500 × 1500 mm</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="h3">
+          <label for="h3">Výška záchodové mísy 460–480 mm od podlahy</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="h4">
+          <label for="h4">Sklopné madlo po obou stranách mísy</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vizuální přístupnost -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-vizualni">
+      <div class="checklist-group-header" id="skupina-vizualni">Vizuální přístupnost a orientace</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="v1">
+          <label for="v1">Kontrast textu a pozadí na popisech a panelech min. 4,5:1 (WCAG 2.2 AA, mezinárodní standard přístupnosti)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v2">
+          <label for="v2">Velikost písma popisků min. 18 bodů, hlavních panelů min. 24 bodů</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v3">
+          <label for="v3">Bezpatkové písmo s jasnou strukturou (bez dekorativních fontů v popisném textu)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v4">
+          <label for="v4">Výška exponátů a vitrín přístupná z pozice vsedě (horní hrana max. 1200 mm od podlahy)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v5">
+          <label for="v5">Osvětlení rovnoměrné, bez oslnění a silných odlesků</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v6">
+          <label for="v6">Orientační systém čitelný bez nutnosti číst text (piktogramy, barevné linie, hmatové prvky)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="v7">
+          <label for="v7">Hmatová vodicí linie nebo přirozená vodicí linie v prostoru</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sluchová přístupnost -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-sluchova">
+      <div class="checklist-group-header" id="skupina-sluchova">Sluchová přístupnost a komunikace</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="s1">
+          <label for="s1">Indukční smyčka v prostorách s mluveným programem nebo audiovizuálními prvky</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="s2">
+          <label for="s2">Audio průvodci a výkladové prvky s textovým přepisem nebo titulky</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="s3">
+          <label for="s3">Videoprojekce s titulky v češtině</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="s4">
+          <label for="s4">Přepážky, pokladny a informační místa s komunikačním systémem pro osoby se sluchovým postižením</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kognitivní přístupnost -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-kognitivni">
+      <div class="checklist-group-header" id="skupina-kognitivni">Kognitivní přístupnost</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="k1">
+          <label for="k1">Popisné texty v plain language: jedna myšlenka, jedna věta; max. 80 slov na panel</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="k2">
+          <label for="k2">Odborné termíny vysvětleny v textu nebo v legendě</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="k3">
+          <label for="k3">Jasná hierarchie panelů a orientačních prvků</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="k4">
+          <label for="k4">Žádný světelný prvek nebliká víckrát než třikrát za sekundu</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="k5">
+          <label for="k5">Klidová zóna s redukovaným hlukem a světlem (alespoň jedno takové místo v prostoru)</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zázemí -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-zazemi">
+      <div class="checklist-group-header" id="skupina-zazemi">Zázemí pro tým, účinkující a hosty</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="z1">
+          <label for="z1">Backstage, šatny a pracovní zázemí přístupné bez schodu nebo s překonáním bariéry</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="z2">
+          <label for="z2">Místo pro přednášející nebo účinkující přístupné z jeviště i ze zákulisí</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="z3">
+          <label for="z3">Únikové a evakuační trasy přístupné pro osoby s omezenou schopností pohybu a orientace</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Konzultace a testování -->
+    <div class="checklist-group" role="group" aria-labelledby="skupina-konzultace">
+      <div class="checklist-group-header urgent" id="skupina-konzultace">Konzultace a testování (povinná součást zakázky)</div>
+      <div class="checklist-items">
+        <div class="checklist-item">
+          <input type="checkbox" id="c1">
+          <label for="c1">Konzultace s odborníkem či odbornicí na přístupnost nebo s komunitním partnerem provedena ve fázi návrhu</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="c2">
+          <label for="c2">Záznam z konzultace předán objednateli: kdo, kdy, jaké připomínky, jak zapracovány</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="c3">
+          <label for="c3">Testování s uživateli se zdravotním postižením provedeno před dokončením</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="c4">
+          <label for="c4">Záznam z testování předán objednateli: kdo, kdy, jaké připomínky, jak zapracovány</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEKCE 4: Kontakty -->
+  <section class="section" aria-labelledby="sekce-kontakty">
+    <div class="section-header">
+      <div class="section-number" aria-hidden="true">4</div>
+      <h2 id="sekce-kontakty">Kontakty na komunitní partnery</h2>
+    </div>
+
+    <div class="contacts-block">
+      <p class="contacts-note">Pro konzultace a testování oslovte některou z následujících organizací.</p>
+      <div class="contact-list" role="list">
+        <div class="contact-item" role="listitem">
+          <strong>Pohybové postižení:</strong> Pražská organizace vozíčkářů, <a href="https://pov.cz" target="_blank" rel="noopener">pov.cz</a>
+        </div>
+        <div class="contact-item" role="listitem">
+          <strong>Zrakové postižení:</strong> SONS, <a href="https://sons.cz" target="_blank" rel="noopener">sons.cz</a>; Okamžik, <a href="https://okamzik.cz" target="_blank" rel="noopener">okamzik.cz</a>
+        </div>
+        <div class="contact-item" role="listitem">
+          <strong>Sluchové postižení:</strong> Tichý svět, <a href="https://tichysvet.cz" target="_blank" rel="noopener">tichysvet.cz</a>; Deaf Friendly, <a href="https://deaffriendly.cz" target="_blank" rel="noopener">deaffriendly.cz</a>
+        </div>
+        <div class="contact-item" role="listitem">
+          <strong>Mentální postižení:</strong> SPMP ČR, <a href="https://spmpcr.cz" target="_blank" rel="noopener">spmpcr.cz</a>
+        </div>
+        <div class="contact-item" role="listitem">
+          <strong>Autismus:</strong> Nautis, <a href="https://nautis.cz" target="_blank" rel="noopener">nautis.cz</a>
+        </div>
+        <div class="contact-item" role="listitem">
+          <strong>Obecná přístupnost:</strong> Asistence, <a href="https://asistence.cz" target="_blank" rel="noopener">asistence.cz</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>Mariana Chytilová · Jak zavést přístupnost do kultury: průvodce</span>
+    <span>Modul 2 · Zadání pro architekta, architektku</span>
+  </footer>
+
+</div>
+</main>
+
+<script>
+(function() {
+  "use strict";
+
+  // Grayscale toggle
+  function initGrayscale() {
+    var btn = document.getElementById("grayscale-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function() {
+      var isOn = document.body.classList.toggle("grayscale");
+      btn.setAttribute("aria-pressed", isOn ? "true" : "false");
+      btn.textContent = isOn ? "Zobrazit barevně" : "Odstíny šedi";
+    });
+  }
+
+  // Checklist: přeškrtnutí zaškrtnuté položky
+  function initChecklist() {
+    var items = document.querySelectorAll(".checklist-item input[type='checkbox']");
+    items.forEach(function(cb) {
+      cb.addEventListener("change", function() {
+        var item = cb.closest(".checklist-item");
+        if (item) {
+          item.classList.toggle("checked", cb.checked);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() {
+      initGrayscale();
+      initChecklist();
+    });
+  } else {
+    initGrayscale();
+    initChecklist();
+  }
+})();
+</script>
+
+</body>
+</html>
