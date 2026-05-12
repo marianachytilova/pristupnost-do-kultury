@@ -3,741 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rozhodovací momenty: výstava</title>
-<meta name="description" content="Mapa rozhodovacích momentů v přípravě výstavy. Součást průvodce Jak zavést přístupnost do kultury.">
+<title>Jak zavést přístupnost do kultury</title>
+<meta name="description" content="Pracovní nástroje pro kurátorky a vedoucí týmů, kteří chtějí zabudovat přístupnost do konkrétního projektu.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --krem: #eeede5;
-    --krem-light: #f5f3ee;
-    --bila: #ffffff;
-    --hneda: #452e25;
-    --tan: #c2a274;
-    --cervena: #fe4623;
-    --sedohneda: #6a5d57;
-    --cerna: #000000;
+    --krem:        #eeede5;
+    --krem-light:  #f5f3ee;
+    --bila:        #ffffff;
+    --hneda:       #452e25;
+    --tan:         #c2a274;
+    --cervena:     #fe4623;
+    --sedohneda:   #6a5d57;
     --border-soft: #d4cfc0;
-    --border-med: #a89e90;
+    --border-med:  #a89e90;
+    --shadow:      rgba(69, 46, 37, 0.08);
   }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+
   body {
     font-family: "Open Sans", sans-serif;
     background: var(--krem);
     color: var(--hneda);
-    line-height: 1.55;
+    line-height: 1.6;
     font-size: 17px;
     min-height: 100vh;
   }
+
   :focus-visible {
     outline: 2px solid var(--cervena);
     outline-offset: 3px;
   }
 
-  /* Skip link pro odečítače obrazovky */
-  .skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--hneda);
-    color: var(--krem);
-    padding: 8px 16px;
-    z-index: 100;
-    text-decoration: none;
-  }
-  .skip-link:focus {
-    top: 0;
-  }
-
+  /* Červená linka nahoře — stejně jako v modulech */
   .top-line {
     height: 3px;
     background: var(--cervena);
   }
 
+  /* Container — stejný jako v modulech */
   .container {
     max-width: 860px;
     margin: 0 auto;
-    padding: 40px 32px 64px;
+    padding: 40px 32px 80px;
   }
 
-  /* Nástrojová lišta s tlačítkem tisku */
-  .toolbar {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-  .tool-btn {
-    background: var(--bila);
-    border: 1.5px solid var(--border-med);
-    color: var(--hneda);
-    padding: 10px 18px;
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 3px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .tool-btn:hover {
-    background: var(--krem-light);
-    border-color: var(--hneda);
-  }
-
-  /* Hlavička dokumentu */
+  /* ─── HEADER — krémové pozadí, ne bílý blok ─── */
   .doc-header {
     border-bottom: 1px solid var(--border-soft);
     padding-bottom: 28px;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
+
   .meta-line {
     font-size: 13px;
     color: var(--sedohneda);
     margin-bottom: 14px;
     font-weight: 600;
   }
+
   .meta-line .sep {
     margin: 0 8px;
     color: var(--border-med);
   }
+
   h1 {
     font-weight: 700;
-    font-size: clamp(28px, 4.2vw, 40px);
+    font-size: clamp(26px, 4vw, 38px);
     line-height: 1.15;
-    letter-spacing: -0.01em;
     color: var(--hneda);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
+
   h1 .accent {
     color: var(--cervena);
   }
+
   .lead {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--hneda);
-    max-width: 640px;
+    font-size: 17px;
+    color: var(--sedohneda);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 20px;
   }
 
-  /* Úvodní box s instrukcí */
+  /* Instrukce k použití — stejný styl jako intro-box v modulech */
   .intro-box {
     background: var(--bila);
-    border: 1px solid var(--border-soft);
     border-left: 4px solid var(--cervena);
-    padding: 20px 24px;
-    margin-bottom: 40px;
-    border-radius: 2px;
-  }
-  .intro-box-title {
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: var(--hneda);
-  }
-  .intro-box p {
-    color: var(--hneda);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 20px;
     font-size: 15px;
-    line-height: 1.55;
-    margin-bottom: 8px;
+    color: var(--hneda);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 16px;
   }
-  .intro-box p:last-child { margin-bottom: 0; }
 
-  /* Legenda autorit */
-  .legend {
+  .proto-note {
+    font-size: 13px;
+    color: var(--sedohneda);
+    border-left: 2px solid var(--border-soft);
+    padding-left: 12px;
+    line-height: 1.5;
+  }
+
+  .proto-note a {
+    color: var(--hneda);
+    text-decoration: underline;
+  }
+
+  .proto-note a:hover { text-decoration: underline; }
+
+  /* ─── SEKCE NADPIS ──────────────────────── */
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--sedohneda);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  /* ─── SKUPINA MODULŮ ────────────────────── */
+  .module-group {
+    margin-bottom: 40px;
+  }
+
+  .module-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--hneda);
+    margin-bottom: 6px;
+  }
+
+  .module-desc {
+    font-size: 15px;
+    color: var(--sedohneda);
+    margin-bottom: 16px;
+    max-width: 520px;
+    line-height: 1.55;
+  }
+
+  /* ─── KARTY ──────────────────────────────── */
+  .cards {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 40px;
-    padding: 20px 24px;
+  }
+
+  .card {
     background: var(--bila);
     border: 1px solid var(--border-soft);
-    border-radius: 3px;
-  }
-  .legend-item {
+    border-radius: 6px;
+    padding: 16px 20px;
     display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    color: var(--hneda);
-  }
-  .legend-chip {
-    display: inline-block;
-    padding: 3px 14px;
-    border-radius: 2px;
-    font-weight: 600;
-    font-size: 12px;
-    flex-shrink: 0;
-    min-width: 180px;
-    text-align: left;
-  }
-  .legend-chip.ja { background: var(--tan); color: var(--cerna); }
-  .legend-chip.spolu { background: var(--krem); color: var(--hneda); border: 1px solid var(--border-med); }
-  .legend-chip.jiny { background: var(--hneda); color: var(--krem); }
-
-  /* Fáze */
-  .phase {
-    margin-bottom: 56px;
-  }
-  .phase-header {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-soft);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .phase-number {
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--krem);
+
+  .card:hover {
+    border-color: var(--cervena);
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+
+  /* Kulatá červená ikonka — stejný styl jako rozcestník Modulu 2 */
+  .card-icon {
+    width: 44px;
+    height: 44px;
     background: var(--cervena);
-    line-height: 1;
-    width: 36px;
-    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
-  h2 {
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -0.01em;
-    color: var(--hneda);
+
+  .card-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--bila);
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
-  /* Moment */
-  .moment {
-    background: var(--bila);
-    border: 1px solid var(--border-soft);
-    border-radius: 3px;
-    padding: 24px 26px;
-    margin-bottom: 20px;
-    page-break-inside: avoid;
-  }
-  .moment-head {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px dashed var(--border-soft);
-  }
-  h3 {
-    font-weight: 600;
-    font-size: 18px;
-    color: var(--hneda);
-    line-height: 1.4;
-  }
-  .authority-badge {
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 2px;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  .authority-ja { background: var(--tan); color: var(--cerna); }
-  .authority-spolu { background: var(--krem); color: var(--hneda); border: 1px solid var(--border-med); }
-  .authority-jiny { background: var(--hneda); color: var(--krem); }
+  .card-body { flex: 1; min-width: 0; }
 
-  /* Řádky s labely */
-  .moment-row {
-    margin-bottom: 16px;
-  }
-  .moment-row:last-child {
-    margin-bottom: 0;
-  }
-  .moment-row.row-highlight {
-    background: var(--krem-light);
-    border-left: 3px solid var(--cervena);
-    padding: 12px 14px 12px 18px;
-    border-radius: 2px;
-  }
-  .row-label {
-    font-size: 13px;
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
     color: var(--hneda);
-    font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
   }
-  .row-content {
-    font-size: 16px;
-    color: var(--hneda);
-    line-height: 1.55;
-  }
-  .row-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 6px 0 0 0;
-  }
-  .row-content li {
-    position: relative;
-    padding-left: 28px;
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--sedohneda);
+    line-height: 1.5;
     margin-bottom: 8px;
-    min-height: 20px;
   }
-  .row-content li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 3px;
+
+  .card-cta {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cervena);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card-cta svg {
     width: 16px;
     height: 16px;
-    border: 1.5px solid var(--hneda);
-    border-radius: 2px;
-    background: var(--bila);
+    stroke: var(--cervena);
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.15s;
   }
 
-  /* Závěrečná otázka */
-  .final-question {
-    margin-top: 56px;
-    padding: 36px 36px;
+  .card:hover .card-cta svg { transform: translateX(3px); }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-soft);
+    margin: 36px 0;
+  }
+
+  /* ─── PATIČKA ────────────────────────────── */
+  footer {
     background: var(--hneda);
-    color: var(--krem);
-    border-radius: 3px;
-    page-break-inside: avoid;
-  }
-  .final-label {
-    font-size: 13px;
-    color: var(--tan);
-    margin-bottom: 14px;
-    font-weight: 700;
-  }
-  .final-text {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.45;
-    color: var(--krem);
-  }
-  .final-note {
-    font-size: 15px;
-    color: var(--krem);
-    opacity: 0.88;
-    margin-top: 18px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(238, 237, 229, 0.2);
-    line-height: 1.55;
-  }
-  .final-note-extra {
-    margin-top: 10px;
-    padding-top: 0;
-    border-top: none;
+    color: var(--border-soft);
+    padding: 28px 32px;
+    font-size: 14px;
   }
 
-  /* Patka */
-  .footer {
-    margin-top: 64px;
-    padding-top: 20px;
-    border-top: 3px solid var(--cervena);
-    font-size: 13px;
-    color: var(--sedohneda);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  footer a { color: var(--tan); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 
-  /* Tisk */
-  @media print {
-    body {
-      background: var(--bila);
-      font-size: 11pt;
-      line-height: 1.5;
-    }
-    .toolbar, .skip-link { display: none; }
-    .container {
-      max-width: 100%;
-      padding: 0 1.5cm;
-    }
-    .top-line { height: 2px; }
-    h1 { font-size: 22pt; }
-    h2 { font-size: 16pt; }
-    h3 { font-size: 13pt; }
-    .lead { font-size: 12pt; }
-    .moment {
-      border: 0.5pt solid var(--border-med);
-      padding: 16pt 18pt;
-      margin-bottom: 12pt;
-    }
-    .final-question {
-      background: var(--hneda);
-      color: var(--krem);
-      margin-top: 24pt;
-      padding: 20pt 24pt;
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
-    }
-    .phase-number, .authority-ja, .authority-spolu, .authority-jiny, .legend-chip {
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
-    }
-    .top-line, .footer {
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
-    }
-    .moment-row.row-highlight {
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
-      background: var(--krem-light);
-      border-left: 2pt solid var(--cervena);
-    }
-    .row-content li::before {
-      print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
-    }
-    .phase { page-break-before: auto; page-break-inside: auto; }
-    h2, h3 { page-break-after: avoid; }
-    .moment, .final-question { page-break-inside: avoid; }
+  @media (max-width: 600px) {
+    .container { padding: 32px 20px 60px; }
+    .card { padding: 14px 16px; gap: 12px; }
+    .card-icon { width: 38px; height: 38px; }
+    .card-icon svg { width: 20px; height: 20px; }
   }
-
-  @media (max-width: 640px) {
-    .container { padding: 24px 18px 60px; }
-    .moment { padding: 18px 20px; }
-    .moment-head { gap: 10px; }
-    .authority-badge { font-size: 11px; padding: 3px 8px; }
-    .phase-number { font-size: 16px; width: 32px; height: 32px; }
-    h1 { font-size: 26px; }
-    h2 { font-size: 20px; }
-    h3 { font-size: 16px; }
-    .lead { font-size: 16px; }
-    .final-question { padding: 24px 22px; }
-    .final-text { font-size: 17px; }
-  }
-
-  /* Režim odstíny šedi */
-  body.grayscale {
-    --tan: #b5b0a8;
-    --cervena: #4a4a4a;
-    --hneda: #2a2a2a;
-  }
-  body.grayscale .authority-ja { background: #b5b0a8; color: #000000; }
-  body.grayscale .authority-jiny { background: #2a2a2a; color: #ffffff; }
-  body.grayscale .authority-spolu { background: #eeede5; color: #2a2a2a; border: 1px solid #8a8580; }
-  body.grayscale .phase-number { background: #4a4a4a; color: #ffffff; }
-  body.grayscale .top-line,
-  body.grayscale .footer { background: #4a4a4a; }
-  body.grayscale .footer { border-top-color: #4a4a4a; }
-  body.grayscale .intro-box { border-left-color: #4a4a4a; }
-  body.grayscale h1 .accent { color: #2a2a2a; }
-  body.grayscale .final-question { background: #2a2a2a; }
-  body.grayscale .final-label { color: #b5b0a8; }
-  body.grayscale .row-highlight { border-left-color: #4a4a4a; }
-  body.grayscale .row-content li::before { color: #2a2a2a; }
 </style>
 </head>
 <body>
 
-<a href="#main" class="skip-link">Přeskočit na obsah</a>
+<!-- Červená linka nahoře — stejně jako v modulech -->
+<div class="top-line" aria-hidden="true"></div>
 
-<div class="top-line" role="presentation"></div>
+<div class="container">
 
-<main id="main" class="container">
-
-  <div class="toolbar">
-    <button type="button" class="tool-btn" id="grayscale-toggle" aria-pressed="false" aria-label="Přepnout zobrazení do odstínů šedi">
-      Odstíny šedi
-    </button>
-    <button type="button" class="tool-btn" onclick="window.print()" aria-label="Otevřít dialog tisku pro uložení jako PDF">
-      Uložit jako PDF nebo vytisknout
-    </button>
-  </div>
-
+  <!-- ─── HEADER ──────────────────────────── -->
   <header class="doc-header">
     <div class="meta-line">
-      <span>Modul 1 z 5</span>
+      Jak zavést přístupnost do kultury: průvodce
       <span class="sep" aria-hidden="true">·</span>
-      <span>Jak zavést přístupnost do kultury: průvodce</span>
-      <span class="sep" aria-hidden="true">·</span>
-      <span>Typ programu: výstava</span>
+      Knihovna modulů
     </div>
-    <h1>Rozhodovací momenty <span class="accent">ve výstavě</span></h1>
-    <p class="lead">V přípravě výstavy je víc momentů rozhodnutí, než se zdá. Tahle mapa ti je pomůže najít a rozlišit.</p>
+    <h1>Pracovní nástroje<br><span class="accent">pro přístupnost v kultuře</span></h1>
+    <p class="lead">Přístupnost v kulturních institucích většinou závisí na jednom člověku. Tyhle nástroje pomáhají dostat ji do zadání a checklistů, takže přežije každý projekt a každou personální změnu.</p>
+    <div class="intro-box">
+      Vyber modul, který odpovídá fázi tvé práce. Otevři ho, projdi a pracuj s ním přímo ve svém projektu. Každý modul funguje samostatně.
+    </div>
+    <p class="proto-note">Pracovní prototyp, květen 2026. Moduly 3 až 5 budou přidány postupně.<br>Zpětná vazba: Mariana Chytilová, <a href="mailto:mariana.chytilova@gmail.com">mariana.chytilova@gmail.com</a></p>
   </header>
 
-  <section class="intro-box" aria-labelledby="instrukce-title">
-    <h2 id="instrukce-title" class="intro-box-title">Jak s mapou pracovat?</h2>
-    <p>Projdi jednotlivé momenty v každé fázi přípravy výstavy. Zaměř se na ty, které se tě týkají.</p>
-    <p>Najdi momenty, o kterých můžeš rozhodovat a začlenit přístupnost. Nemusíš jich najít mnoho. Na začátek stačí třeba tři.</p>
-  </section>
+  <!-- ─── MODULY ───────────────────────────── -->
+  <p class="section-label">Moduly průvodce</p>
 
-  <section class="legend" aria-label="Legenda štítků autorit">
-    <div class="legend-item">
-      <span class="legend-chip ja">Rozhoduji já</span>
-      <span>Máš to v rukou.</span>
+  <!-- MODUL 1 -->
+  <div class="module-group">
+    <h2 class="module-title">Modul 1: Kde přístupnost v projektu stojí a padá</h2>
+    <p class="module-desc">Mapa rozhodovacích momentů. Ukáže, kde v přípravě projektu je čas přístupnost zabudovat, a kde je už pozdě. Vyber typ projektu, který teď připravuješ.</p>
+
+    <div class="cards">
+
+      <a class="card" href="modul-1-mapa-dashboard.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Síť uzlů: interaktivní mapa -->
+          <svg viewBox="0 0 24 24">
+            <circle cx="5" cy="12" r="2" fill="white" stroke="none"/>
+            <circle cx="19" cy="6" r="2" fill="white" stroke="none"/>
+            <circle cx="19" cy="18" r="2" fill="white" stroke="none"/>
+            <line x1="7" y1="11" x2="17" y2="7"/>
+            <line x1="7" y1="13" x2="17" y2="17"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Interaktivní přehled všech momentů</div>
+          <div class="card-desc">Klikatelná mapa pro všechny typy projektů. Pro práci na obrazovce nebo první orientaci.</div>
+          <div class="card-cta">Otevřít přehled <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <a class="card" href="modul-1-dokument-vystava.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Výstava: obraz v rámu na stěně -->
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="14" rx="1" stroke-width="2"/>
+            <path d="M7 14 Q10 9 13 12 Q16 15 18 11" stroke-width="1.6"/>
+            <circle cx="17" cy="8" r="1.5" fill="white" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Dokument ke stažení: výstava</div>
+          <div class="card-desc">Celá mapa rozbalená na jedné stránce. Stáhni, vytiskni nebo ulož. Pro přípravu výstavy.</div>
+          <div class="card-cta">Otevřít dokument <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <a class="card" href="modul-1-dokument-vzdelavaci-program.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Vzdělávací program: dvě postavy -->
+          <svg viewBox="0 0 24 24">
+            <circle cx="8" cy="7" r="2.5"/>
+            <path d="M2 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+            <circle cx="17" cy="9" r="2"/>
+            <path d="M14 21c0-2.2 1.3-4 3-4s3 1.8 3 4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Dokument ke stažení: vzdělávací program</div>
+          <div class="card-desc">Celá mapa rozbalená na jedné stránce. Stáhni, vytiskni nebo ulož. Pro vzdělávací program.</div>
+          <div class="card-cta">Otevřít dokument <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
     </div>
-    <div class="legend-item">
-      <span class="legend-chip spolu">Rozhodujeme spolu</span>
-      <span>Sdílená odpovědnost.</span>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MODUL 2 -->
+  <div class="module-group">
+    <h2 class="module-title">Modul 2: Zadání pro dodavatele</h2>
+    <p class="module-desc">Konkrétní věty a požadavky, které patří do brifu nebo smlouvy s dodavatelem. Vyber, s kým pracuješ, a dostaneš připravené formulace.</p>
+
+    <div class="cards">
+
+      <a class="card" href="modul-2-rozcestnik.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Rozcestník: otazník -->
+          <svg viewBox="0 0 24 24">
+            <path d="M9 9a3 3 0 1 1 4 2.83C12 13 12 14 12 14"/>
+            <circle cx="12" cy="18" r="1.2" fill="white" stroke="none"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Nevím, s kým pracuji. Pomoz mi vybrat.</div>
+          <div class="card-desc">Rozcestník tě nasměruje na správnou variantu zadání.</div>
+          <div class="card-cta">Otevřít rozcestník <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <a class="card" href="modul-2-zadani-architekt.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Architekt: dům -->
+          <svg viewBox="0 0 24 24">
+            <path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-5h6v5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Zadání pro architekta nebo projektanta</div>
+          <div class="card-desc">Požadavky na fyzický prostor, pohyb, orientaci a smyslové vnímání.</div>
+          <div class="card-cta">Otevřít zadání <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <a class="card" href="modul-2-zadani-graficka.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Grafička: slunce / světlo -->
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Zadání pro grafičku nebo designéra</div>
+          <div class="card-desc">Kontrast, typografie, srozumitelnost vizuální komunikace.</div>
+          <div class="card-cta">Otevřít zadání <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
+      <a class="card" href="modul-2-zadani-webmaster.html">
+        <div class="card-icon" aria-hidden="true">
+          <!-- Webmaster: monitor -->
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4M7 8h10M7 12h6"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Zadání pro webmastera nebo vývojáře</div>
+          <div class="card-desc">Přístupnost webu a WCAG požadavky formulované srozumitelně pro zadavatele.</div>
+          <div class="card-cta">Otevřít zadání <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+
     </div>
-    <div class="legend-item">
-      <span class="legend-chip jiny">Rozhoduje jiný</span>
-      <span>Můžeš ovlivnit vstupy.</span>
-    </div>
-  </section>
+  </div>
 
-  <!-- FÁZE 1: PŘÍPRAVA -->
-  <section class="phase" aria-labelledby="faze-priprava">
-    <div class="phase-header">
-      <div class="phase-number" aria-hidden="true">1</div>
-      <h2 id="faze-priprava">Příprava</h2>
-    </div>
+</div><!-- /container -->
 
-    <article class="moment" aria-labelledby="m1-1">
-      <div class="moment-head">
-        <h3 id="m1-1">Zadání pro architekta výstavy</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Co v zadání stojí, jak je formulované, jaké standardy přístupnosti jsou vypsané jako požadavek.</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Výběr konkrétního architekta, pokud je to společné rozhodnutí s kurátorským týmem nebo vedením.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Doplň samostatný odstavec o přístupnosti: výšky vitrín, kontrasty, volné průchody.</li>
-            <li>Přidej povinnost konzultace s osobou se zkušeností (nevidomá, neslyšící, osoba s kognitivním znevýhodněním).</li>
-            <li>Vlož kontakt na komunitního partnera, pokud ho máš.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <article class="moment" aria-labelledby="m1-2">
-      <div class="moment-head">
-        <h3 id="m1-2">Dramaturgie výstavy: výběr exponátů a příběhů</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Jaké příběhy vyprávíš, koho v nich necháváš promluvit, s jakým publikem počítáš.</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Výběr variant alternativních formátů: taktilní modely, audioprůvodce, titulky a rozhodnutí o rozpočtu.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Vyber alespoň jeden příběh, který v sobě má téma odlišnosti, znevýhodnění nebo přístupnosti.</li>
-            <li>Zvaž, kde společně s vizuální prezentací zapojit další smysl: sluch, dotek, čich.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <article class="moment" aria-labelledby="m1-3">
-      <div class="moment-head">
-        <h3 id="m1-3">Zadání pro grafičku katalogu, popisků a orientačního systému</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Obsah zadání. Požadavky na kontrast, velikost písma a font. Strukturu textu.</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Výběr grafičky. Rozpočet na tisk nebo instalaci.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Zadej pravidlo pro kontrast 4,5:1 podle WCAG 2.2 na úrovni AA (mezinárodní standard přístupnosti).</li>
-            <li>Zvol bezpatkové písmo s velikostí u popisků minimálně 18 bodů. U hlavních textů minimálně 24.</li>
-            <li>Dej požadavek na plain language (srozumitelný jazyk) a dostatečné strukturování textu.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- FÁZE 2: REALIZACE -->
-  <section class="phase" aria-labelledby="faze-realizace">
-    <div class="phase-header">
-      <div class="phase-number" aria-hidden="true">2</div>
-      <h2 id="faze-realizace">Realizace</h2>
-    </div>
-
-    <article class="moment" aria-labelledby="m2-1">
-      <div class="moment-head">
-        <h3 id="m2-1">Texty na panelech a popiskách</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Co na panelech stojí? Jakým jazykem? V jaké délce?</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Redakční kontrola textu? Schválení, odevzdání?</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Zkrať popisky na maximálně 80 slov.</li>
-            <li>Zkontroluj, jestli každému termínu rozumí i člověk mimo obor.</li>
-            <li>Pro každý text měj základní verzi v plain language, srozumitelném jazyce. A teprve pak přidej odbornější verzi.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <article class="moment" aria-labelledby="m2-2">
-      <div class="moment-head">
-        <h3 id="m2-2">Instalace a testování prostupnosti prostoru</h3>
-        <span class="authority-badge authority-spolu">Rozhodujeme spolu</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Zda, kdy a s kým přijdeš do prostoru otestovat jeho průchodnost, dosažitelnost a dobrou viditelnost vitrín, exponátů a čitelnost popisků.</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Architekt a produkční tým nese za instalaci odpovědnost. Ty o ní můžeš spolurozhodovat.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Přizvi někoho, kdo se po prostoru pohybuje jinak než ty: člověka na vozíku, člověka s holí nebo bílou holí, rodiče s kočárkem, člověka se psem, a prostor spolu projděte.</li>
-            <li>Projdi trasu v přítmí při zhoršené viditelnosti a zkontroluj, zda žádné světlo nebliká víckrát než 3× za vteřinu.</li>
-            <li>Ověř, že se popisky dají číst z pozice v sedě i stojmo.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- FÁZE 3: OTEVŘENÍ -->
-  <section class="phase" aria-labelledby="faze-otevreni">
-    <div class="phase-header">
-      <div class="phase-number" aria-hidden="true">3</div>
-      <h2 id="faze-otevreni">Otevření</h2>
-    </div>
-
-    <article class="moment" aria-labelledby="m3-1">
-      <div class="moment-head">
-        <h3 id="m3-1">Komunikace výstavy před otevřením: web, sociální sítě, tisková zpráva, tisková konference, grafické materiály</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Jaké informace o přístupnosti uvádíš a jakým způsobem je popisuješ?</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Jak vypadá grafická podoba kampaně? Jakými komunikačními kanály je program prezentovaný? A kde všude se informace o přístupnosti uvádí.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Přidej na stránky výstavy, do příspěvků na sociálních sítích i do další komunikace informace o přístupnosti. Kde je bezbariérový vstup? Je na místě přístupná toaleta? Pokud není, kde je nejbližší? Kde je možné zaparkovat? Jak se na místo člověk dostane z nejbližší zastávky veřejné dopravy? Co může publikum očekávat uvnitř? A je k dispozici nějaká asistence?</li>
-            <li>Případná přístupná opatření zmiň v tiskové zprávě i na tiskové konferenci.</li>
-            <li>Uveď kontakt: e-mail a telefon (pro volání i SMS), kde si lidé mohou své dotazy k přístupnosti vyjasnit předem.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <article class="moment" aria-labelledby="m3-2">
-      <div class="moment-head">
-        <h3 id="m3-2">Brief pro kolegyni z edukace a průvodkyně</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Jaké informace tým dostane? S jakými formáty i publikem může počítat dopředu? A jakou podporu mu dáš?</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Zda program míří na všechny bez rozdílu, nebo se počítá se speciálními prohlídkami či programem pro konkrétní publikum?</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Připrav jednostránkový brief: čeho si u přístupnosti v této výstavě všímat, jak přístupná opatření komunikovat směrem k publiku.</li>
-            <li>Zařaď 2 až 3 modelové situace: co když přijde skupina lidí se sluchovým postižením, co když dorazí někdo se psem, co když dorazí někdo s miminkem, které potřebuje přebalit.</li>
-            <li>Rezervuj si 30 minut s týmem před otevřením a vše společně proberte.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-
-    <article class="moment" aria-labelledby="m3-3">
-      <div class="moment-head">
-        <h3 id="m3-3">Den otevření: vernisáž a průchod prostorem</h3>
-        <span class="authority-badge authority-ja">Rozhoduji já</span>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">V čem rozhoduješ ty?</div>
-        <div class="row-content">Jak je vernisáž koncipovaná? Jak dlouhé jsou projevy? Jaká je akustika? Je zajištěno tlumočení do českého znakového jazyka nebo simultánní přepis do češtiny?</div>
-      </div>
-      <div class="moment-row">
-        <div class="row-label">Co rozhoduje někdo jiný?</div>
-        <div class="row-content">Rozpočet na tlumočení nebo přepis. Zajištění případného sezení nebo občerstvení tak, aby se na něj dalo dosáhnout ze stoje i v sedě.</div>
-      </div>
-      <div class="moment-row row-highlight">
-        <div class="row-label">Co konkrétního můžeš zapracovat?</div>
-        <div class="row-content">
-          <ul>
-            <li>Zvaž zajištění simultánního tlumočení do českého znakového jazyka, pokud čekáš neslyšící publikum. Případně simultánní přepis do češtiny, pokud bude v sále více lidí a chceš, aby všichni rozuměli.</li>
-            <li>Omez délku projevů. Zařaď pauzy.</li>
-            <li>Ujisti se, že prostor má i místo na sezení, včetně židlí s opěrkami pro ty, kdo nevydrží stát a potřebují se při zvedání o něco opřít.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <!-- ZÁVĚREČNÁ OTÁZKA -->
-  <section class="final-question" aria-labelledby="final-label">
-    <div id="final-label" class="final-label">Jedna otázka směrem k instituci</div>
-    <p class="final-text">„Kde v naší práci zpřístupnění záleží jen na osobní iniciativě jednoho z týmu?"</p>
-    <p class="final-note">Tahle otázka není pro tebe. Je pro poradu, pro vedení, pro tým.</p>
-    <p class="final-note final-note-extra">Argumenty, jak ji otevřít a ustát, dostaneš v Modulu 4.</p>
-  </section>
-
-  <footer class="footer">
-    <span>Mariana Chytilová · Jak zavést přístupnost do kultury: průvodce</span>
-    <span>Modul 1 · Výstava</span>
-  </footer>
-
-</main>
-
-<script>
-(function() {
-  "use strict";
-  function init() {
-    var btn = document.getElementById("grayscale-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", function() {
-      var isOn = document.body.classList.toggle("grayscale");
-      btn.setAttribute("aria-pressed", isOn ? "true" : "false");
-      btn.textContent = isOn ? "Zobrazit barevně" : "Odstíny šedi";
-    });
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();
-</script>
+<!-- ─── PATIČKA ───────────────────────────────────── -->
+<footer>
+  Mariana Chytilová &nbsp;·&nbsp; <a href="https://marianachytilova.com">marianachytilova.com</a> &nbsp;·&nbsp; <a href="mailto:mariana.chytilova@gmail.com">mariana.chytilova@gmail.com</a>
+</footer>
 
 </body>
 </html>
