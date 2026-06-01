@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul 1: Přístupnost v každé fázi</title>
+<meta name="description" content="Projdi přístupnost ve čtyřech oblastech a třech fázích výstavy nebo programu. Vyber svou fázi a odnes si podněty pro ni. Součást průvodce Jak zavést přístupnost do kultury.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --krem: #eeede5;
+    --krem-light: #f5f3ee;
+    --bila: #ffffff;
+    --hneda: #452e25;
+    --tan: #c2a274;
+    --cervena: #fe4623;
+    --sedohneda: #6a5d57;
+    --border-soft: #d4cfc0;
+    --border-med: #a89e90;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Open Sans", sans-serif;
+    background: var(--krem);
+    color: var(--hneda);
+    line-height: 1.6;
+    font-size: 17px;
+    min-height: 100vh;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cervena);
+    outline-offset: 3px;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--hneda);
+    color: var(--krem);
+    padding: 8px 16px;
+    z-index: 100;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 0; }
+
+  .top-line { height: 3px; background: var(--cervena); }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 32px 80px;
+  }
+
+  /* Tlačítka */
+  .tool-btn {
+    background: var(--bila);
+    border: 1.5px solid var(--border-med);
+    color: var(--hneda);
+    padding: 10px 18px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tool-btn:hover { border-color: var(--hneda); }
+
+  .topnav { margin-bottom: 22px; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--hneda);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--cervena); text-decoration: underline; }
+
+  /* Hlavička */
+  .doc-header {
+    border-bottom: 1px solid var(--border-soft);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .meta-line {
+    font-size: 13px;
+    color: var(--sedohneda);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .meta-line .sep { margin: 0 8px; color: var(--border-med); }
+
+  h1 {
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--hneda);
+    margin-bottom: 16px;
+  }
+  h1 .accent { color: var(--cervena); }
+
+  .lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--hneda);
+    max-width: 660px;
+  }
+
+  /* Instrukce */
+  .intro-box {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-left: 4px solid var(--cervena);
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    border-radius: 2px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--hneda);
+    max-width: 760px;
+  }
+  .intro-box-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .intro-box p + p { margin-top: 8px; }
+  .scenario-list { list-style: none; margin-top: 12px; }
+  .scenario-list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 9px;
+    line-height: 1.55;
+  }
+  .scenario-list li::before {
+    content: "\2192";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--cervena);
+    font-weight: 700;
+  }
+
+  /* Průřezové principy */
+  .crosscut {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+  .crosscut-head {
+    grid-column: 1 / -1;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--hneda);
+  }
+  .crosscut-item {
+    background: var(--krem-light);
+    border: 1px solid var(--border-soft);
+    border-top: 3px solid var(--tan);
+    border-radius: 2px;
+    padding: 16px 20px;
+  }
+  .crosscut-item h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--hneda);
+  }
+  .zv-phase { font-weight: 400; font-size: 13px; color: var(--hneda); }
+  .crosscut-item p { font-size: 14px; line-height: 1.55; color: var(--hneda); }
+
+  /* Výběr fáze */
+  .phase-section { margin-bottom: 16px; }
+  .phase-prompt {
+    display: inline-block;
+    font-size: clamp(18px, 2.4vw, 21px);
+    font-weight: 700;
+    color: var(--hneda);
+    border-bottom: 3px solid var(--cervena);
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+  }
+  .phase-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .phase-btn {
+    text-align: left;
+    background: var(--bila);
+    border: 1.5px solid var(--border-med);
+    border-radius: 3px;
+    padding: 16px 18px;
+    cursor: pointer;
+    font-family: "Open Sans", sans-serif;
+    color: var(--hneda);
+    transition: border-color .15s, background .15s;
+  }
+  .phase-btn:hover { border-color: var(--hneda); }
+  .phase-btn .pb-name {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .phase-btn .pb-def {
+    display: block;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--sedohneda);
+  }
+  .phase-btn[aria-pressed="true"] {
+    background: var(--hneda);
+    border-color: var(--hneda);
+  }
+  .phase-btn[aria-pressed="true"] .pb-name { color: var(--bila); }
+  .phase-btn[aria-pressed="true"] .pb-def { color: #d8cfc6; }
+
+  .phase-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .download-btn {
+    background: var(--cervena);
+    border: 1.5px solid var(--cervena);
+    color: var(--bila);
+    padding: 12px 22px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .download-btn:disabled {
+    background: var(--bila);
+    border-color: var(--border-med);
+    color: var(--border-med);
+    cursor: not-allowed;
+  }
+  .phase-status { font-size: 14px; color: var(--sedohneda); }
+
+  /* Oblasti a buňky */
+  .area {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 28px;
+    margin-bottom: 40px;
+  }
+  .area-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 22px;
+  }
+  .area-num {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--tan);
+    font-variant-numeric: tabular-nums;
+  }
+  .area-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--hneda);
+    margin-bottom: 10px;
+  }
+  .area-char { font-size: 15px; line-height: 1.6; color: var(--hneda); max-width: 720px; }
+  .area-char p + p { margin-top: 8px; }
+  .area-char ul { list-style: none; margin: 8px 0; }
+  .area-char li { position: relative; padding-left: 18px; margin-bottom: 4px; }
+  .area-char li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 10px;
+    width: 6px; height: 6px;
+    background: var(--tan);
+    border-radius: 50%;
+  }
+  .area-question {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--hneda);
+    border-left: 3px solid var(--tan);
+    padding-left: 14px;
+    max-width: 720px;
+  }
+
+  .cells {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .cell {
+    background: var(--bila);
+    border: 1px solid var(--border-soft);
+    border-radius: 2px;
+    padding: 18px 20px;
+    transition: opacity .18s, border-color .18s, box-shadow .18s;
+  }
+  .cell-phase-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tan);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .cell-body { font-size: 14.5px; line-height: 1.58; color: var(--hneda); }
+  .cell-body p + p { margin-top: 10px; }
+
+  /* Zabalení nezvolených fází */
+  .matrix[data-active] .cells { grid-template-columns: 1fr; }
+  .matrix[data-active] .cell { display: none; }
+  .matrix[data-active="pred"] .cell[data-phase="pred"],
+  .matrix[data-active="behem"] .cell[data-phase="behem"],
+  .matrix[data-active="po"] .cell[data-phase="po"] {
+    display: block;
+    border-color: var(--cervena);
+    border-left-width: 4px;
+    box-shadow: 0 2px 10px rgba(69, 46, 37, 0.07);
+  }
+
+  .bottom-actions {
+    margin-top: 48px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .module-nav {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .mod-link {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 3px;
+    border: 1.5px solid var(--border-med);
+    background: var(--bila);
+    color: var(--hneda);
+    text-decoration: none;
+  }
+  a.mod-link:hover { border-color: var(--hneda); }
+  .mod-link.back { border-color: var(--hneda); }
+  .mod-link.is-current {
+    background: var(--hneda);
+    border-color: var(--hneda);
+    color: var(--bila);
+  }
+  .mod-link.is-soon {
+    background: transparent;
+    border-style: dashed;
+    color: var(--hneda);
+    cursor: default;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--sedohneda);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media print {
+    .skip-link, .phase-actions, .phase-prompt, .bottom-actions, .topnav, .module-nav { display: none; }
+    .top-line { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .matrix[data-active] .cell { display: block !important; }
+    .matrix[data-active] .cells { grid-template-columns: repeat(3, 1fr) !important; }
+    .cell, .crosscut-item { break-inside: avoid; }
+    .area { break-inside: avoid-page; }
+  }
+
+  @media (max-width: 820px) {
+    .phase-bar, .cells, .crosscut { grid-template-columns: 1fr; }
+    .container { padding: 24px 20px 56px; }
+    .area-head { grid-template-columns: auto 1fr; }
+    .footer { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Přeskočit na obsah</a>
+<div class="top-line" role="presentation"></div>
+
+<main id="main" class="container">
+
+  <nav class="topnav" aria-label="Návrat">
+    <a class="back-link" href="index.html">&#8592; Zpět na úvod průvodce</a>
+  </nav>
+
+  <header class="doc-header">
+    <div class="meta-line">
+      <span>Modul 1 z 5</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>Jak zavést přístupnost do kultury: průvodce</span>
+    </div>
+    <h1>Přístupnost má prostor <span class="accent">ve všech fázích</span></h1>
+    <p class="lead">V tomto modulu najdeš informace, jak přístupnost promýšlet podle toho, v jaké fázi výstavy nebo programu se právě nacházíš. Odneseš si podněty a strategii, se kterou půjdeš dál.</p>
+  </header>
+
+  <section class="intro-box" aria-labelledby="jak-projit">
+    <h2 id="jak-projit" class="intro-box-title">Jak projít tímto modulem?</h2>
+    <p>Přístupnost je rozepsaná do čtyř oblastí: fyzické prostředí, informace, program a personál. Zároveň je rozdělená do tří fází, podle toho, na čem právě pracuješ.</p>
+    <ul class="scenario-list">
+      <li>Plánuješ výstavu nebo program? Podívej se na fázi <strong>před začátkem projektu</strong>.</li>
+      <li>Chystáš nějaký program nebo výstavu právě teď? Přejdi na fázi <strong>během projektu</strong>.</li>
+      <li>Máš nějakou výstavu nebo program čerstvě za sebou? Podívej se na fázi <strong>po projektu</strong>.</li>
+      <li>Chceš se jen inspirovat a projít si všechny oblasti přístupnosti? Přeskoč fáze a ponoř se do popisu fyzického prostředí, informací, programu a personálu.</li>
+    </ul>
+  </section>
+
+  <section class="crosscut" aria-labelledby="prurezove">
+    <h2 id="prurezove" class="crosscut-head">Průřezové principy: platí pro všechny oblasti i fáze</h2>
+    <div class="crosscut-item">
+      <h3>Participace</h3>
+      <p>Nic o nás bez nás. V každé fázi i v každé oblasti přizvi lidi, kterých se přístupnost týká.</p>
+    </div>
+    <div class="crosscut-item">
+      <h3>Zpětná vazba<span class="zv-phase" id="zv-phase"></span></h3>
+      <p id="zv-text">Zpětná vazba na program i přístupná opatření patří do každé fáze, a vždy přístupně. Ne každý napíše vzkaz na papír nebo vyplní dotazník.</p>
+    </div>
+  </section>
+
+  <section class="phase-section" aria-labelledby="vyber-faze">
+    <p class="phase-prompt" id="vyber-faze">Vyber svou fázi:</p>
+    <div class="phase-bar" role="group" aria-label="Výběr fáze">
+      <button type="button" class="phase-btn" data-phase="pred" aria-pressed="false">
+        <span class="pb-name">Před začátkem projektu</span>
+        <span class="pb-def">Ještě se rozhoduje, co a jak vznikne. Píše se koncept, zadání a rozpočet, sestavuje se tým a spolupráce.</span>
+      </button>
+      <button type="button" class="phase-btn" data-phase="behem" aria-pressed="false">
+        <span class="pb-name">Během projektu</span>
+        <span class="pb-def">Výstava nebo program se připravuje, instaluje a běží.</span>
+      </button>
+      <button type="button" class="phase-btn" data-phase="po" aria-pressed="false">
+        <span class="pb-name">Po projektu</span>
+        <span class="pb-def">Výstava nebo program skončil. Sbírá se zpětná vazba, předává se, co zůstane, a poznatky jdou do dalšího projektu.</span>
+      </button>
+    </div>
+    <div class="phase-actions">
+      <button type="button" class="download-btn" id="download-btn" disabled>Nejdřív vyber svou fázi</button>
+      <span class="phase-status" id="phase-status" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <div class="matrix" id="matrix">
+
+    <!-- Fyzické prostředí -->
+    <section class="area" aria-labelledby="area-fyz">
+      <div class="area-head">
+        <div class="area-num" aria-hidden="true">01</div>
+        <div>
+          <h2 class="area-name" id="area-fyz">Fyzické prostředí</h2>
+          <div class="area-char">
+            <p>Přístupnost fyzického prostředí souvisí s pohybem, orientací a našimi smysly. Cílem je:</p>
+            <ul>
+              <li>nezávislý pohyb, ať už na vozíku, s kočárkem, s holí, nebo když je člověk unavený,</li>
+              <li>možnost se zorientovat při příchodu do budovy, uvnitř i na cestě ven,</li>
+              <li>podpora smyslů: dobrá akustika, dostatečné a různorodé osvětlení, kontrastní značení, klid i místo k odpočinku.</li>
+            </ul>
+          </div>
+          <p class="area-question">Jak prostor tvého muzea nebo galerie slouží různým tělům a smyslům? Můžeš něco z toho změnit?</p>
+        </div>
+      </div>
+      <div class="cells">
+        <div class="cell" data-phase="pred" aria-label="Fyzické prostředí, před začátkem projektu">
+          <div class="cell-phase-label">Před začátkem projektu</div>
+          <div class="cell-body">
+            <p>Tady se teprve rozhoduje, co vznikne. Máš představu, co všechno fyzická přístupnost zahrnuje? Rozhodni, co z toho chcete v tomhle projektu (ať už výstavě, nebo programu) řešit.</p>
+            <p>Zmapuj vaše prostory. Ke zmapování přizvi lidi s postižením a jejich organizace, které se přístupnosti věnují.</p>
+            <p>Je potřeba, aby část přístupnosti řešil architekt nebo designér výstavy? Pokud ano, dodej mu informace a podklady do zadání a smlouvy. Najdeš je v modulu 2.</p>
+            <p>Případná opatření i bariéry popište a počítejte s nimi v komunikační strategii, ať se lidé na vaši výstavu nebo program mohou připravit.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="behem" aria-label="Fyzické prostředí, během projektu">
+          <div class="cell-phase-label">Během projektu</div>
+          <div class="cell-body">
+            <p>Teď se to staví a přípravy běží. Projdi celou cestu návštěvníka: od příchodu do budovy, celým prostorem a zase ven. Ideálně s lidmi s postižením.</p>
+            <p>Zjisti, kde si člověk potřebuje sednout a odpočinout a jestli se z každého prostoru dostane na toaletu i ven. Uprav, co ještě drhne: zavírající se dveře, špatně viditelná cedule, hluk nebo blikání, které nejdou ztlumit ani jim uniknout.</p>
+            <p>Jak připravit tým na samotný provoz, najdeš v modulu 3.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="po" aria-label="Fyzické prostředí, po projektu">
+          <div class="cell-phase-label">Po projektu</div>
+          <div class="cell-body">
+            <p>Rozhodni, co z fyzických úprav zůstane natrvalo a co bylo jen pro tuhle výstavu. Zapiš, co se osvědčilo, ať to můžete použít zase příště. Předání řeší modul 5.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Informace -->
+    <section class="area" aria-labelledby="area-info">
+      <div class="area-head">
+        <div class="area-num" aria-hidden="true">02</div>
+        <div>
+          <h2 class="area-name" id="area-info">Informace</h2>
+          <div class="area-char">
+            <p>Přístupné informace mají dvě vrstvy. První je přístupný obsah. Druhá spočívá v tom, na koho se s těmi informacemi obracíš.</p>
+            <p>Přístupné by měly být webové stránky i informace na sociálních sítích, ale také popisky, katalogy a plakáty. K tomu slouží různé alternativní formáty, jako je třeba audiopopis, titulky, video ve znakovém jazyce, informace v srozumitelném jazyce (plain language) nebo taktilní plány a modely.</p>
+            <p>Dáváš lidem vědět o svých přístupných opatřeních a o tom, co přístupného nabízíš, aby věděli, že mohou přijít? Na tenhle typ informací se často zapomíná.</p>
+          </div>
+          <p class="area-question">Komu, co a v jakých formátech budeš informace sdílet? Kterými kanály informace plynou a kde je lidé najdou?</p>
+        </div>
+      </div>
+      <div class="cells">
+        <div class="cell" data-phase="pred" aria-label="Informace, před začátkem projektu">
+          <div class="cell-phase-label">Před začátkem projektu</div>
+          <div class="cell-body">
+            <p>Teď se rozhoduje, co komu a jak budete o programu říkat. Naplánuj komunikační strategii: v jakých formátech informace vzniknou (srozumitelný jazyk, audio pozvánky, titulky, videa ve znakovém jazyce), kde se o programu a přístupných opatřeních člověk dozví (web, sociální sítě, plakáty, newsletter) a koho chcete oslovit (běžné publikum, lidi s postižením a jejich organizace, školy, komunitu).</p>
+            <p>Počítej rovnou s tím, že mezi informacemi bude i to, co přístupného nabízíte, aby lidé věděli, na co se mají připravit. A počítej s alternativními formáty i v rozpočtu.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="behem" aria-label="Informace, během projektu">
+          <div class="cell-phase-label">Během projektu</div>
+          <div class="cell-body">
+            <p>Teď obsah vzniká. Hlídej, aby byl přístupný napříč kanály, šel dobře načíst a najít na webu. Obrázky ať mají alternativní text. Příspěvky na sociálních sítích ať mají titulky nebo audiopopis.</p>
+            <p>Dej si pozor, aby byly všechny texty srozumitelné. Konkrétní zadání pro grafičku a webmastera najdeš v modulu 2. Informace v alternativních formátech můžeš vytvářet, nebo je alespoň testovat s lidmi, kteří je pak opravdu používají.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="po" aria-label="Informace, po projektu">
+          <div class="cell-phase-label">Po projektu</div>
+          <div class="cell-body">
+            <p>Aktualizuj informace o přístupnosti, ať jsou připravené i na další program. Zjisti, co se osvědčilo, a tyto formáty i formulace ulož pro příště.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Program -->
+    <section class="area" aria-labelledby="area-prog">
+      <div class="area-head">
+        <div class="area-num" aria-hidden="true">03</div>
+        <div>
+          <h2 class="area-name" id="area-prog">Program</h2>
+          <div class="area-char">
+            <p>Přístupnost se může týkat jak výstavy, tak programu pro školy nebo speciálních prohlídek. Přístupnost tady znamená, že nabízíš více cest, kterými člověk může program vnímat nebo si ho užít. Také souvisí s tím, zda program vytváříš a připravuješ přímo s lidmi s postižením. A konečně nabízí příležitost představit práci umělců a umělkyň s postižením. V této oblasti máš největší vliv.</p>
+          </div>
+          <p class="area-question">Kolika různými způsoby si dnes člověk může tvůj program užít? A koho jsi přizvala k jeho přípravě?</p>
+        </div>
+      </div>
+      <div class="cells">
+        <div class="cell" data-phase="pred" aria-label="Program, před začátkem projektu">
+          <div class="cell-phase-label">Před začátkem projektu</div>
+          <div class="cell-body">
+            <p>Tady rozhoduješ, pro koho program je a jakými cestami se dá projít. Rovnou naplánuj víc způsobů účasti, ať s tím všichni počítají.</p>
+            <p>Rozhodni, koho z lidí s postižením nebo organizací lidí s postižením přizveš k vytváření programu hned od začátku, a ne až ke kontrole na konci. Zvaž, jestli je na výstavě nebo v programu prostor pro tvorbu umělců a umělkyň s postižením.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="behem" aria-label="Program, během projektu">
+          <div class="cell-phase-label">Během projektu</div>
+          <div class="cell-body">
+            <p>Teď program běží. Pravidelně procházej cesty, kterými si lidé program mohou užít, a ptej se, jestli pořád fungují: vlastní tempo, srozumitelné texty, české i anglické titulky u videí s možností je zastavit a pustit, víc způsobů, jak se zapojit, možnost si některé exponáty osahat.</p>
+            <p>Na program mají vliv všichni v týmu. Rozdělení konkrétních úkolů pro lidi v týmu najdeš v modulu 3.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="po" aria-label="Program, po projektu">
+          <div class="cell-phase-label">Po projektu</div>
+          <div class="cell-body">
+            <p>Vyhodnoť, jak program i jednotlivé cesty účasti dopadly. To, co fungovalo, zapiš a použij zase příště.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Personál -->
+    <section class="area" aria-labelledby="area-pers">
+      <div class="area-head">
+        <div class="area-num" aria-hidden="true">04</div>
+        <div>
+          <h2 class="area-name" id="area-pers">Personál</h2>
+          <div class="area-char">
+            <p>Lidé jsou pro přístupnost nejdůležitější. S lidmi přístupnost stojí a padá. Patří sem to, jak je tým připravený na publikum, které se pohybuje, vnímá nebo komunikuje trošku jinak, než je běžné; zda je v týmu někdo, kdo nese za přístupnost odpovědnost; zda přístupností žijí i lidé, na které publikum narazí jako první: ostraha nebo kustodi a kustodky. A také zda je součástí týmu někdo, kdo sám postižení má.</p>
+          </div>
+          <p class="area-question">Je v týmu někdo, kdo má přístupnost na starosti? Pokud ano a zítra by odešel, co by se s přístupností stalo?</p>
+        </div>
+      </div>
+      <div class="cells">
+        <div class="cell" data-phase="pred" aria-label="Personál, před začátkem projektu">
+          <div class="cell-phase-label">Před začátkem projektu</div>
+          <div class="cell-body">
+            <p>Teď rozhoduješ o tom, kdo všechno bude za přístupnost odpovědný. Je dobré mít člověka, na kterého se mohou všichni obrátit, ale zároveň přístupnost závisí i na ostatních. Promysli, jestli má tvůj tým na přístupnost kapacitu.</p>
+            <p>Počítej s tím, že do přípravy zapojíš i lidi, na které publikum narazí v první linii: ostrahu, kustody a kustodky. Zvaž, koho z lidí s postižením k přípravě nebo proškolení personálu přizvat, nebo ho rovnou zaměstnat.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="behem" aria-label="Personál, během projektu">
+          <div class="cell-phase-label">Během projektu</div>
+          <div class="cell-body">
+            <p>Prober s týmem, jak komunikovat a asistovat publiku s postižením: jak je přivítat a jak na ně reagovat. Týká se to hlavně lidí v první linii, ostrahy a kustodů a kustodek.</p>
+            <p>Zvaž proškolení pro asistenci lidem na vozíku nebo s bílou holí a pro základy komunikace, případně jen pro představu o přístupných opatřeních, která budou během programu nebo výstavy fungovat. Konkrétní checklisty pro jednotlivé role najdeš v modulu 3.</p>
+          </div>
+        </div>
+        <div class="cell" data-phase="po" aria-label="Personál, po projektu">
+          <div class="cell-phase-label">Po projektu</div>
+          <div class="cell-body">
+            <p>Zmapuj a popiš, co všechno bylo ohledně přístupnosti potřeba zařídit: rozhodnutí, kontakty na partnery a partnerské organizace, kontakty na lektory kvůli školením.</p>
+            <p>Zvýrazni, co se povedlo a co fungovalo. Rozšiř tento materiál dál do týmu, ať nezůstane v hlavě jenom tobě. Předání a brief pro tým řeší modul 5.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /matrix -->
+
+  <div class="bottom-actions">
+    <button type="button" class="tool-btn" onclick="window.print()" aria-label="Otevřít dialog tisku pro uložení celého modulu jako PDF">
+      Uložit celý modul jako PDF
+    </button>
+  </div>
+
+  <nav class="module-nav" aria-label="Moduly průvodce">
+    <a class="mod-link back" href="index.html">&#8592; Zpět na úvod</a>
+    <span class="mod-link is-current" aria-current="page">1. Přístupnost v každé fázi</span>
+    <a class="mod-link" href="modul-2-rozcestnik.html">2. Zadání pro dodavatele</a>
+    <span class="mod-link is-soon">3. Štafeta pro tým (připravujeme)</span>
+    <span class="mod-link is-soon">4. Argumentační karty (připravujeme)</span>
+    <span class="mod-link is-soon">5. Předání a brief (připravujeme)</span>
+  </nav>
+
+  <footer class="footer">
+    <span>Mariana Chytilová · Jak zavést přístupnost do kultury: průvodce</span>
+    <span>Modul 1 · Přístupnost v každé fázi</span>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var PHASES = {
+    pred:  "Před začátkem projektu",
+    behem: "Během projektu",
+    po:    "Po projektu"
+  };
+  var STORAGE_KEY = "pristupnost-modul1-faze";
+
+  var FEEDBACK = {
+    "default": "Zpětná vazba na program i přístupná opatření patří do každé fáze, a vždy přístupně. Ne každý napíše vzkaz na papír nebo vyplní dotazník.",
+    pred: "Naplánuj rovnou, jak a od koho budeš zpětnou vazbu sbírat, a to přístupně. Počítej s tím v rozpočtu i v čase.",
+    behem: "Sleduj průběžné reakce publika i personálu a zapisuj je. Co jde, uprav hned, větší věci si pojmenuj pro vyhodnocení.",
+    po: "Sesbírej zpětnou vazbu na program i přístupná opatření od návštěvníků s postižením i bez, a to přístupně. Ne každý napíše vzkaz na papír nebo vyplní dotazník. Ptej se různými způsoby, na konci i zpětně po delší době."
+  };
+
+  function init() {
+    var matrix = document.getElementById("matrix");
+    var phaseBtns = Array.prototype.slice.call(document.querySelectorAll(".phase-btn"));
+    var dlBtn = document.getElementById("download-btn");
+    var status = document.getElementById("phase-status");
+    var zvText = document.getElementById("zv-text");
+    var zvPhase = document.getElementById("zv-phase");
+
+    function setPhase(phase) {
+      if (phase) {
+        matrix.setAttribute("data-active", phase);
+      } else {
+        matrix.removeAttribute("data-active");
+      }
+      phaseBtns.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-phase") === phase ? "true" : "false");
+      });
+      if (zvText) zvText.textContent = phase ? FEEDBACK[phase] : FEEDBACK["default"];
+      if (zvPhase) zvPhase.textContent = phase ? " · pro fázi " + PHASES[phase].toLowerCase() : "";
+      if (phase) {
+        dlBtn.disabled = false;
+        dlBtn.textContent = "Uložit vybranou fázi jako PDF";
+        status.textContent = "Zvolená fáze: " + PHASES[phase] + ". Podněty pro ostatní fáze jsou teď schované.";
+      } else {
+        dlBtn.disabled = true;
+        dlBtn.textContent = "Nejdřív vyber svou fázi";
+        status.textContent = "";
+      }
+      try { phase ? localStorage.setItem(STORAGE_KEY, phase) : localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    }
+
+    phaseBtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        var p = b.getAttribute("data-phase");
+        var current = matrix.getAttribute("data-active");
+        setPhase(current === p ? null : p);
+      });
+    });
+
+    dlBtn.addEventListener("click", function () {
+      var phase = matrix.getAttribute("data-active");
+      if (!phase) return;
+      printTakeaway(phase);
+    });
+
+    // Obnovení zvolené fáze z minula (tichá záloha, nevadí, když není k dispozici)
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && PHASES[saved]) setPhase(saved);
+    } catch (e) {}
+  }
+
+  function phaseDef(phase) {
+    var btn = document.querySelector('.phase-btn[data-phase="' + phase + '"] .pb-def');
+    return btn ? btn.textContent.trim() : "";
+  }
+
+  function collectAreas(phase) {
+    var areas = Array.prototype.slice.call(document.querySelectorAll(".matrix .area"));
+    return areas.map(function (area) {
+      var name = area.querySelector(".area-name").textContent.trim();
+      var charHtml = area.querySelector(".area-char").innerHTML.trim();
+      var qEl = area.querySelector(".area-question");
+      var question = qEl ? qEl.textContent.trim() : "";
+      var cell = area.querySelector('.cell[data-phase="' + phase + '"] .cell-body');
+      var cellHtml = cell ? cell.innerHTML.trim() : "";
+      return { name: name, charHtml: charHtml, question: question, cellHtml: cellHtml };
+    });
+  }
+
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function buildTakeaway(phase) {
+    var phaseName = PHASES[phase];
+    var def = phaseDef(phase);
+    var areas = collectAreas(phase);
+    var participace = document.querySelectorAll(".crosscut-item")[0].querySelector("p").textContent.trim();
+    var zpetna = document.querySelectorAll(".crosscut-item")[1].querySelector("p").textContent.trim();
+
+    var areaHtml = areas.map(function (a) {
+      return '<section class="a">' +
+        '<h2>' + esc(a.name) + '</h2>' +
+        '<div class="char">' + a.charHtml + '</div>' +
+        (a.question ? '<p class="q">' + esc(a.question) + '</p>' : '') +
+        '<div class="cell">' + a.cellHtml + '</div>' +
+        '</section>';
+    }).join("");
+
+    return '<!DOCTYPE html><html lang="cs"><head><meta charset="UTF-8">' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+      '<title>Podněty k přístupnosti: ' + esc(phaseName) + '</title>' +
+      '<style>' +
+      'body{font-family:"Open Sans",Arial,sans-serif;color:#452e25;background:#eeede5;line-height:1.6;max-width:760px;margin:0 auto;padding:40px 28px;font-size:16px;}' +
+      '.line{height:3px;background:#fe4623;margin:-40px -28px 28px;}' +
+      'h1{font-size:26px;line-height:1.2;margin-bottom:6px;}' +
+      '.faze{color:#6a5d57;font-weight:600;margin-bottom:4px;font-size:14px;}' +
+      '.def{color:#6a5d57;font-size:14px;margin-bottom:24px;}' +
+      '.cross{background:#f5f3ee;border:1px solid #d4cfc0;border-top:3px solid #c2a274;border-radius:2px;padding:14px 18px;margin-bottom:14px;}' +
+      '.cross h3{font-size:14px;margin-bottom:4px;}.cross p{font-size:14px;}' +
+      '.a{border-top:1px solid #d4cfc0;padding-top:20px;margin-top:24px;}' +
+      '.a h2{font-size:20px;margin-bottom:8px;}' +
+      '.char{font-size:14px;color:#452e25;margin-bottom:8px;}.char ul{margin:6px 0 6px 18px;}' +
+      '.q{font-weight:600;border-left:3px solid #c2a274;padding-left:12px;margin:10px 0;}' +
+      '.cell{background:#fff;border:1px solid #d4cfc0;border-left:4px solid #fe4623;border-radius:2px;padding:14px 18px;margin-top:10px;}' +
+      '.foot{margin-top:32px;padding-top:16px;border-top:1px solid #d4cfc0;color:#6a5d57;font-size:12px;}' +
+      '@media print{.line{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}' +
+      '</style></head><body>' +
+      '<div class="line"></div>' +
+      '<p class="faze">Jak zavést přístupnost do kultury · Modul 1 · podněty pro tvou fázi</p>' +
+      '<h1>' + esc(phaseName) + '</h1>' +
+      '<p class="def">' + esc(def) + '</p>' +
+      '<div class="cross"><h3>Participace</h3><p>' + esc(participace) + '</p></div>' +
+      '<div class="cross"><h3>Zpětná vazba</h3><p>' + esc(zpetna) + '</p></div>' +
+      areaHtml +
+      '<p class="foot">Mariana Chytilová · Jak zavést přístupnost do kultury: průvodce. Tento dokument si ulož k projektu, ať přístupnost přežije i personální změny.</p>' +
+      '</body></html>';
+  }
+
+  function printTakeaway(phase) {
+    var html = buildTakeaway(phase);
+    var iframe = document.createElement("iframe");
+    iframe.setAttribute("aria-hidden", "true");
+    iframe.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;";
+    document.body.appendChild(iframe);
+    var d = iframe.contentWindow.document;
+    d.open(); d.write(html); d.close();
+    function go() {
+      try { iframe.contentWindow.focus(); iframe.contentWindow.print(); } catch (e) {}
+      setTimeout(function () { if (iframe.parentNode) iframe.parentNode.removeChild(iframe); }, 2000);
+    }
+    if (d.readyState === "complete") { setTimeout(go, 350); }
+    else { iframe.onload = function () { setTimeout(go, 350); }; }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>
