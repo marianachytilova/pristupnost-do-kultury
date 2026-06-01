@@ -339,6 +339,40 @@
   }
 
   /* Footer */
+  /* Navigace průvodce */
+  .module-nav {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .mod-link {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 3px;
+    border: 1.5px solid var(--border-med);
+    background: var(--bila);
+    color: var(--hneda);
+    text-decoration: none;
+  }
+  a.mod-link:hover { border-color: var(--hneda); }
+  .mod-link.back { border-color: var(--hneda); }
+  .mod-link.is-current {
+    background: var(--hneda);
+    border-color: var(--hneda);
+    color: var(--bila);
+  }
+  .mod-link.is-soon {
+    background: transparent;
+    border-style: dashed;
+    color: var(--sedohneda);
+    cursor: default;
+  }
+
   .footer {
     margin-top: 56px;
     padding-top: 20px;
@@ -352,13 +386,9 @@
   }
 
   /* Grayscale mode */
-  body.grayscale {
-    filter: grayscale(1);
-  }
-
   /* Print */
   @media print {
-    .toolbar { display: none; }
+    .toolbar, .module-nav { display: none; }
     .top-line { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     .checklist-group-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     body { font-size: 13px; }
@@ -385,9 +415,6 @@
 
   <!-- Toolbar -->
   <div class="toolbar" role="toolbar" aria-label="Nástroje dokumentu">
-    <button class="tool-btn" id="grayscale-toggle" aria-pressed="false">
-      Odstíny šedi
-    </button>
     <button class="tool-btn" onclick="window.print()">
       Uložit jako PDF nebo vytisknout
     </button>
@@ -711,6 +738,15 @@
     </div>
   </section>
 
+  <nav class="module-nav" aria-label="Moduly průvodce">
+    <a class="mod-link back" href="index.html">&#8592; Zpět na úvod</a>
+    <a class="mod-link" href="modul-1-pristupnost-v-kazde-fazi.html">1. Přístupnost v každé fázi</a>
+    <a class="mod-link is-current" href="modul-2-rozcestnik.html" aria-current="page">2. Zadání pro dodavatele</a>
+    <span class="mod-link is-soon">3. Štafeta pro tým (připravujeme)</span>
+    <span class="mod-link is-soon">4. Argumentační karty (připravujeme)</span>
+    <span class="mod-link is-soon">5. Přenos do dalšího fungování (připravujeme)</span>
+  </nav>
+
   <footer class="footer">
     <span>Mariana Chytilová · Jak zavést přístupnost do kultury: průvodce</span>
     <span>Modul 2 · Zadání pro webmastera</span>
@@ -722,17 +758,6 @@
 <script>
 (function() {
   "use strict";
-
-  // Grayscale toggle
-  function initGrayscale() {
-    var btn = document.getElementById("grayscale-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", function() {
-      var isOn = document.body.classList.toggle("grayscale");
-      btn.setAttribute("aria-pressed", isOn ? "true" : "false");
-      btn.textContent = isOn ? "Zobrazit barevně" : "Odstíny šedi";
-    });
-  }
 
   // Checklist: přeškrtnutí zaškrtnuté položky
   function initChecklist() {
@@ -749,11 +774,9 @@
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function() {
-      initGrayscale();
       initChecklist();
     });
   } else {
-    initGrayscale();
     initChecklist();
   }
 })();
